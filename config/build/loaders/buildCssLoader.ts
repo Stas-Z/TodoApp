@@ -1,4 +1,4 @@
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 export const buildCssLoader = (isDev: boolean) => ({
     test: /\.s[ac]ss$/i,
@@ -17,6 +17,12 @@ export const buildCssLoader = (isDev: boolean) => ({
                 },
             },
         },
-        'sass-loader',
+        {
+            loader: 'sass-loader',
+            options: {
+                sourceMap: isDev,
+                api: 'modern-compiler',
+            },
+        },
     ],
-});
+})

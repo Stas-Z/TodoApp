@@ -1,25 +1,25 @@
-import path from 'path';
+import path from 'path'
 
-import webpack from 'webpack';
+import webpack from 'webpack'
 
-import { buildWebpackConfig } from './config/build/buildWebpackConfig';
-import { BuildEnv, BuildMode, BuildPaths } from './config/build/types/config';
+import { buildWebpackConfig } from './config/build/buildWebpackConfig'
+import { BuildEnv, BuildMode, BuildPaths } from './config/build/types/config'
 
 function getApiUrl(mode: BuildMode, apiUrl?: string) {
     if (apiUrl) {
-        return apiUrl;
+        return apiUrl
     }
     if (mode === 'production') {
-        return '/api';
+        return '/api'
     }
-    return 'http://localhost:8000';
+    return 'http://localhost:8000'
 }
 
 export default (env: BuildEnv) => {
-    const PORT = env?.port || 3000;
-    const mode = env?.mode || 'development';
-    const isDev = mode === 'development';
-    const apiUrl = getApiUrl(mode, env?.apiUrl);
+    const PORT = env?.port || 3000
+    const mode = env?.mode || 'development'
+    const isDev = mode === 'development'
+    const apiUrl = getApiUrl(mode, env?.apiUrl)
 
     const paths: BuildPaths = {
         entry: path.resolve(__dirname, 'src', 'index.tsx'),
@@ -30,7 +30,7 @@ export default (env: BuildEnv) => {
         buildLocales: path.resolve(__dirname, 'build', 'locales'),
         img: path.resolve(__dirname, 'public', 'img'),
         buildImg: path.resolve(__dirname, 'build', 'img'),
-    };
+    }
 
     const config: webpack.Configuration = buildWebpackConfig({
         mode,
@@ -38,7 +38,7 @@ export default (env: BuildEnv) => {
         isDev,
         port: PORT,
         apiUrl,
-    });
+    })
 
-    return config;
-};
+    return config
+}

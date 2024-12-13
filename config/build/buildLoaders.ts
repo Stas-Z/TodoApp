@@ -1,11 +1,11 @@
-import webpack from 'webpack';
+import webpack from 'webpack'
 
-import { buildBabelLoader } from './loaders/buildBabelLoader';
-import { buildCssLoader } from './loaders/buildCssLoader';
-import { BuildOptions } from './types/config';
+import { buildBabelLoader } from './loaders/buildBabelLoader'
+import { buildCssLoader } from './loaders/buildCssLoader'
+import { BuildOptions } from './types/config'
 
 export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
-    const { isDev } = options;
+    const { isDev } = options
 
     const fileLoader = {
         test: /\.(png|jpe?g|gif|woff2|woff)$/i,
@@ -14,12 +14,12 @@ export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
                 loader: 'file-loader',
             },
         ],
-    };
+    }
 
-    const codeBabelLoader = buildBabelLoader({ ...options, isTsx: false });
-    const tsxBabelLoader = buildBabelLoader({ ...options, isTsx: true });
+    const codeBabelLoader = buildBabelLoader({ ...options, isTsx: false })
+    const tsxBabelLoader = buildBabelLoader({ ...options, isTsx: true })
 
-    const cssLoader = buildCssLoader(isDev);
+    const cssLoader = buildCssLoader(isDev)
 
-    return [fileLoader, codeBabelLoader, tsxBabelLoader, cssLoader];
+    return [fileLoader, codeBabelLoader, tsxBabelLoader, cssLoader]
 }
