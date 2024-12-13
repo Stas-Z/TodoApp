@@ -1,11 +1,11 @@
 import { AxiosInstance } from 'axios'
 
-import { CounterSchema } from '@/entities/Counter'
+import { UserSchema } from '@/entities/User'
 
 import { createReduxStore } from './store'
 
 export interface StateSchema {
-    counter: CounterSchema
+    user: UserSchema
 }
 
 export interface ThunkExtraArg {

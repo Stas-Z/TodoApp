@@ -1,7 +1,8 @@
 import { memo } from 'react'
 
-import { Counter } from '@/entities/Counter'
 import { classNames } from '@/shared/lib/classNames/classNames'
+
+import AppRouter from './providers/router/ui/AppRouter'
 
 interface AppProps {
     className?: string
@@ -12,7 +13,7 @@ export const App = memo((props: AppProps) => {
 
     return (
         <div id="app" className={classNames('', {}, [className])}>
-            <Counter />
+            <AppRouter />
         </div>
     )
 })
