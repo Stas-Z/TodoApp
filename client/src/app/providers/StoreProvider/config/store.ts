@@ -1,7 +1,7 @@
 import { configureStore, ReducersMapObject } from '@reduxjs/toolkit'
 
 import { userReducer } from '@/entities/User'
-import { regReducer } from '@/features/AuthorizationForm'
+import { authMiddleware, regReducer } from '@/features/AuthorizationForm'
 import { $api } from '@/shared/api/api'
 
 import { StateSchema, ThunkExtraArg } from './StateSchema'
@@ -25,7 +25,7 @@ export function createReduxStore(initialState?: StateSchema) {
                 thunk: {
                     extraArgument: extraArg,
                 },
-            }),
+            }).concat(authMiddleware),
     })
 
     return store

@@ -23,11 +23,6 @@ const LoginPage = (props: LoginPageProps) => {
         )
     }
 
-    return (
-        <Suspense fallback="">
-            {/* <LoginModal className={className} /> */}
-            LoginPage
-        </Suspense>
-    )
+    return <Suspense fallback="">LoginPage</Suspense>
 }
 export default memo(LoginPage)

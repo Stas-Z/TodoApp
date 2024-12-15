@@ -51,13 +51,19 @@ const LoginForm = (props: LoginFormProps) => {
             if (result.meta.requestStatus === 'fulfilled') {
                 timerRef.current = setTimeout(() => {
                     dispatch(authByEmail({ password, email }))
+                    onSuccess?.()
                 }, 1000)
             }
         }
         if (view === AuthType.AUTH) {
-            await dispatch(authByEmail({ password, email }))
+            const result = await dispatch(authByEmail({ password, email }))
+            if (result.meta.requestStatus === 'fulfilled') {
+                timerRef.current = setTimeout(() => {
+                    onSuccess?.()
+                }, 1000)
+            }
         }
-    }, [view, dispatch, password, email])
+    }, [view, dispatch, password, email, onSuccess])
 
     const onChangeHandler = (view: AuthType) => {
         dispatch(regActions.setView(view))
@@ -79,8 +85,8 @@ const LoginForm = (props: LoginFormProps) => {
         }
     }, [onKeyDown])
 
-    const errorMessage = <Text type="danger">error</Text>
-    const succesMessage = <Text type="success">succes</Text>
+    const errorMessage = <Text type="danger">{error}</Text>
+    const succesMessage = <Text type="success">{succes}</Text>
     const buttonText = view === AuthType.AUTH ? 'Войти' : 'Зарегистрировать'
 
     return (

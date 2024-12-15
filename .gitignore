@@ -1,4 +1,13 @@
-/client/build
-/client/node_modules
+# production
+client/build
+
+# misc
 .vscode
 .fttemplates
+
+# env
+server/config/config.env
+
+# dependencies
+client/node_modules
+server/node_modules
