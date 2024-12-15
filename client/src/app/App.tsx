@@ -1,6 +1,8 @@
 import { memo } from 'react'
 
+import { ContentLayout } from '@/shared/layouts/ContentLayout'
 import { classNames } from '@/shared/lib/classNames/classNames'
+import { Navbar } from '@/widgets/Navbar'
 
 import AppRouter from './providers/router/ui/AppRouter'
 
@@ -13,7 +15,11 @@ export const App = memo((props: AppProps) => {
 
     return (
         <div id="app" className={classNames('', {}, [className])}>
-            <AppRouter />
+            <ContentLayout
+                header={<Navbar />}
+                sidebar="sidebar"
+                content={<AppRouter />}
+            />
         </div>
     )
 })

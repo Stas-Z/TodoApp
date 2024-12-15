@@ -8,6 +8,7 @@
             {
                 "ignoreValues": ["box"]
             }
-        ]
+        ],
+        "indentation": "tab"
     }
 }
