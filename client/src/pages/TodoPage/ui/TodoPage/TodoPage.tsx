@@ -9,7 +9,7 @@ interface TodoPageProps {
     className?: string
 }
 
-export const TodoPage = memo((props: TodoPageProps) => {
+const TodoPage = memo((props: TodoPageProps) => {
     const { className } = props
 
     return (
@@ -19,3 +19,5 @@ export const TodoPage = memo((props: TodoPageProps) => {
         </div>
     )
 })
+
+export default TodoPage

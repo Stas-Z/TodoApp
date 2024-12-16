@@ -1,1 +1,1 @@
-export { TodoPage } from './ui/TodoPage/TodoPage'
+export { TodoPageAsync as TodoPage } from './ui/TodoPage/TodoPage.async'
