@@ -3,10 +3,12 @@ import { check } from 'express-validator'
 export class UserValidator {
     static userOptions() {
         return [
-            check('email', 'Invalid email address').optional().isEmail(),
+            check('email', 'Неверный адрес электронной почты')
+                .optional()
+                .isEmail(),
             check(
                 'password',
-                'Password must be longer than 3 and shorter than 12 characters in length',
+                'Пароль должен быть длиннее 3 и короче 12 символов.',
             )
                 .optional()
                 .isLength({ min: 3, max: 12 }),

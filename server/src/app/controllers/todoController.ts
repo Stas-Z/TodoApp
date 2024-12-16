@@ -33,9 +33,9 @@ export class TodoController {
 
     static async getTodos(req: Request, res: Response): Promise<void> {
         try {
-            const { sort, search } = req.query as {
-                sort?: string
+            const { search, completed } = req.query as {
                 search?: string
+                completed?: boolean
             }
 
             if (!req.user?.id) {
@@ -43,8 +43,11 @@ export class TodoController {
                 return
             }
 
-            const query = { user: req.user.id }
-            const todos = await Todo.find(query).sort(sort ? { [sort]: 1 } : {})
+            const query = {
+                user: req.user.id,
+                ...(completed !== undefined && { completed }),
+            }
+            const todos = await Todo.find(query).sort({ _id: -1 })
 
             if (search && search.length > 1) {
                 const filteredTodos = todos.filter((todo) =>
@@ -58,6 +61,47 @@ export class TodoController {
         } catch (e) {
             console.error(e)
             res.status(500).json({ message: "Can't get todos" })
+        }
+    }
+
+    static async updateTodoValue(req: Request, res: Response): Promise<void> {
+        try {
+            const { id, value, completed } = req.body as {
+                id: string
+                value: string
+                completed: boolean
+            }
+
+            if (!req.user?.id) {
+                res.status(401).json({ message: 'Unauthorized' })
+                return
+            }
+
+            if (!id || !value) {
+                res.status(400).json({
+                    message: 'Invalid data: id and value are required',
+                })
+                return
+            }
+
+            const todo = await Todo.findOne({
+                _id: id,
+                user: req.user.id,
+            })
+
+            if (!todo) {
+                res.status(404).json({ message: 'Todo not found' })
+                return
+            }
+
+            todo.value = value
+            todo.completed = completed
+            await todo.save()
+
+            res.json({ message: 'Todo updated successfully', todo })
+        } catch (e) {
+            console.error(e)
+            res.status(400).json({ message: 'Error updating todo' })
         }
     }
 

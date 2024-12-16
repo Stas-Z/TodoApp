@@ -3,14 +3,14 @@ import mongoose, { Schema, Types, model } from 'mongoose'
 export const { ObjectId } = mongoose.Types
 export interface TodoAttrs {
     value: string
-    date?: Date
+    createdAt?: Date
     completed?: boolean
     user?: Types.ObjectId
 }
 export interface TodoDoc extends mongoose.Document {
     value: string
     completed?: boolean
-    date?: Date
+    createdAt?: Date
     user?: Types.ObjectId
 }
 export interface TodoModel extends mongoose.Model<TodoDoc> {
@@ -20,7 +20,7 @@ export interface TodoModel extends mongoose.Model<TodoDoc> {
 const Todo = new Schema({
     value: { type: String, required: true },
     completed: { type: Boolean, default: false },
-    date: { type: Date, default: Date.now() },
+    createdAt: { type: Date, default: Date.now() },
     user: { type: ObjectId, ref: 'User' },
 })
 
