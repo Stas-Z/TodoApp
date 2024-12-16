@@ -1,8 +1,9 @@
 import { memo, useCallback, useEffect } from 'react'
 
+import { Empty, Typography } from 'antd'
 import { useSelector } from 'react-redux'
 
-import { TodoList } from '@/entities/Todo'
+import { MyTodo, TodoList } from '@/entities/Todo'
 import { classNames } from '@/shared/lib/classNames/classNames'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch'
 
@@ -10,6 +11,7 @@ import {
     getTodoListIsLoading,
     getTodosList,
 } from '../../model/selectors/getTodosSelector'
+import { deleteTodo } from '../../model/services/deleteTodo/deleteTodo'
 import { fetchTodoList } from '../../model/services/fetchTodoList/fetchTodoList'
 import { updateTodo } from '../../model/services/updateTodo/updateTodo'
 import { todoListActions } from '../../model/slice/todoListSlice'
@@ -17,6 +19,7 @@ import { todoListActions } from '../../model/slice/todoListSlice'
 interface UserTodoListProps {
     className?: string
 }
+const { Text } = Typography
 
 export const UserTodoList = memo((props: UserTodoListProps) => {
     const { className } = props
@@ -36,7 +39,7 @@ export const UserTodoList = memo((props: UserTodoListProps) => {
         completed?: boolean,
     ) => {
         dispatch(
-            todoListActions.updateTodoValue({
+            todoListActions.updateTodo({
                 id,
                 changes: { value, completed },
             }),
@@ -49,7 +52,33 @@ export const UserTodoList = memo((props: UserTodoListProps) => {
         },
         [dispatch],
     )
+    const deleteTodoHandler = useCallback(
+        async (todo: MyTodo) => {
+            const backUpTodo = { ...todo }
 
+            dispatch(todoListActions.deleteTodo(todo._id))
+
+            try {
+                const id = todo._id
+                await dispatch(deleteTodo({ id })).unwrap()
+            } catch (e) {
+                if (backUpTodo) {
+                    dispatch(todoListActions.setTodo(backUpTodo))
+                }
+                console.error('Failed to update todo:', e)
+            }
+        },
+        [dispatch],
+    )
+
+    if (!todos.length) {
+        return (
+            <Empty
+                description="У вас нет дел на сегодня!"
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+            />
+        )
+    }
     return (
         <div className={classNames('', {}, [className])}>
             <TodoList
@@ -57,6 +86,7 @@ export const UserTodoList = memo((props: UserTodoListProps) => {
                 isLoading={isLoading}
                 updateTodoServer={updateTodoServer}
                 updateTodoAction={updateTodoAction}
+                deleteTodoHandler={deleteTodoHandler}
             />
         </div>
     )

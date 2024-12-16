@@ -19,7 +19,9 @@ export const todoListSlice = createSlice({
         entities: {},
     }),
     reducers: {
-        updateTodoValue: todosAdapter.updateOne,
+        setTodo: todosAdapter.setOne,
+        updateTodo: todosAdapter.updateOne,
+        deleteTodo: todosAdapter.removeOne,
     },
     extraReducers: (builder) => {
         builder

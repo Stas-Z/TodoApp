@@ -12,11 +12,18 @@ interface TodoListProps {
     isLoading?: boolean
     updateTodoServer: (id: string, value?: string, completed?: boolean) => void
     updateTodoAction: (id: string, value?: string, completed?: boolean) => void
+    deleteTodoHandler: (todo: MyTodo) => void
 }
 
 export const TodoList = memo((props: TodoListProps) => {
-    const { className, todos, updateTodoServer, updateTodoAction, isLoading } =
-        props
+    const {
+        className,
+        todos,
+        updateTodoServer,
+        updateTodoAction,
+        isLoading,
+        deleteTodoHandler,
+    } = props
 
     return (
         <div className={classNames(cls.todoList, {}, [className])}>
@@ -27,6 +34,7 @@ export const TodoList = memo((props: TodoListProps) => {
                     isLoading={isLoading}
                     updateTodoServer={updateTodoServer}
                     updateTodoAction={updateTodoAction}
+                    deleteTodoHandler={deleteTodoHandler}
                 />
             ))}
         </div>

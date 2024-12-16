@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react'
+import { memo, useCallback, useEffect } from 'react'
 
 import { PlusCircleOutlined } from '@ant-design/icons'
 import { Button, Card, Input, Space } from 'antd'
@@ -37,6 +37,21 @@ export const TodoBlank = memo((props: TodoBlankProps) => {
         onAddTodo(value)
         onChangeText('')
     }, [onAddTodo, onChangeText, value])
+
+    const onKeyDown = useCallback(
+        (e: KeyboardEvent) => {
+            if (e.key === 'Enter') {
+                onAddHandler()
+            }
+        },
+        [onAddHandler],
+    )
+    useEffect(() => {
+        window.addEventListener('keydown', onKeyDown)
+        return () => {
+            window.removeEventListener('keydown', onKeyDown)
+        }
+    }, [onKeyDown])
 
     return (
         <div className={classNames(cls.todoBlank, {}, [className])}>

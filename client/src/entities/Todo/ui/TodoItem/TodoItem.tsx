@@ -1,7 +1,7 @@
 import { memo, useCallback, useEffect, useState } from 'react'
 
 import { CheckCircleOutlined, DeleteOutlined } from '@ant-design/icons'
-import { Button, Card, Input, Skeleton, Space } from 'antd'
+import { Button, Card, Input, Modal, Skeleton, Space } from 'antd'
 
 import { classNames } from '@/shared/lib/classNames/classNames'
 
@@ -14,14 +14,29 @@ interface TodoItemProps {
     isLoading?: boolean
     updateTodoServer: (id: string, value?: string, completed?: boolean) => void
     updateTodoAction: (id: string, value?: string, completed?: boolean) => void
+    deleteTodoHandler: (todo: MyTodo) => void
 }
 
 export const TodoItem = memo((props: TodoItemProps) => {
-    const { className, todo, updateTodoServer, updateTodoAction, isLoading } =
-        props
+    const {
+        className,
+        todo,
+        updateTodoServer,
+        updateTodoAction,
+        isLoading,
+        deleteTodoHandler,
+    } = props
 
     const [initValue, setInitValue] = useState('')
     const [inputValue, setInputValue] = useState('')
+    const [isAuthModal, setIsAuthModal] = useState(false)
+
+    const onCloseModal = useCallback(() => {
+        setIsAuthModal(false)
+    }, [])
+    const onShowModal = useCallback(() => {
+        setIsAuthModal(true)
+    }, [])
 
     useEffect(() => {
         setInitValue(todo.value)
@@ -53,7 +68,10 @@ export const TodoItem = memo((props: TodoItemProps) => {
         updateTodoAction,
         updateTodoServer,
     ])
-    console.log('isLoading', isLoading)
+
+    const onClickDelete = useCallback(() => {
+        deleteTodoHandler(todo)
+    }, [deleteTodoHandler, todo])
 
     return (
         <Skeleton loading={isLoading} active>
@@ -69,7 +87,11 @@ export const TodoItem = memo((props: TodoItemProps) => {
                 )}
             >
                 <Space.Compact block>
-                    <Button size="large" icon={<DeleteOutlined />} />
+                    <Button
+                        size="large"
+                        icon={<DeleteOutlined />}
+                        onClick={onShowModal}
+                    />
                     <Input
                         value={todo.value}
                         onChange={onChangeText}
@@ -85,6 +107,15 @@ export const TodoItem = memo((props: TodoItemProps) => {
                     />
                 </Space.Compact>
             </Card>
+            <Modal
+                open={isAuthModal}
+                title="Вы действительно хотите удалить этот Todo?"
+                onCancel={onCloseModal}
+                centered
+                okText="Удалить"
+                okType="danger"
+                onOk={onClickDelete}
+            />
         </Skeleton>
     )
 })
