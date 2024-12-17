@@ -3,6 +3,7 @@ import { memo, useCallback, useEffect, useState } from 'react'
 import { CheckCircleOutlined, DeleteOutlined } from '@ant-design/icons'
 import { Button, Card, Input, Modal, Skeleton, Space } from 'antd'
 
+import { formatDate } from '@/shared/helpers/formatDate/formatDate'
 import { classNames } from '@/shared/lib/classNames/classNames'
 
 import cls from './TodoItem.module.scss'
@@ -73,6 +74,8 @@ export const TodoItem = memo((props: TodoItemProps) => {
         deleteTodoHandler(todo)
     }, [deleteTodoHandler, todo])
 
+    const formattedDate = formatDate(todo.createdAt)
+
     return (
         <Skeleton loading={isLoading} active>
             <Card
@@ -106,6 +109,7 @@ export const TodoItem = memo((props: TodoItemProps) => {
                         }
                     />
                 </Space.Compact>
+                <div className={cls.date}>{formattedDate}</div>
             </Card>
             <Modal
                 open={isAuthModal}

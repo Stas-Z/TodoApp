@@ -96,7 +96,11 @@ export const UserTodoList = memo((props: UserTodoListProps) => {
         </div>
     )
 
-    if (!todos.length) {
+    const isEmpty =
+        (!sortTodos.length && !todos.length) ||
+        (completed && !todosCompleted.length)
+
+    if (isEmpty) {
         return (
             <Empty
                 description={
@@ -108,7 +112,6 @@ export const UserTodoList = memo((props: UserTodoListProps) => {
             />
         )
     }
-
     return (
         <div className={classNames(cls.userTodoList, {}, [className])}>
             {!completed && switchTodo}
