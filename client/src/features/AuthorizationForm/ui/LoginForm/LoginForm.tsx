@@ -84,6 +84,12 @@ const LoginForm = (props: LoginFormProps) => {
     const errorMessage = <Text type="danger">{error}</Text>
     const succesMessage = <Text type="success">{succes}</Text>
     const buttonText = view === AuthType.AUTH ? 'Войти' : 'Зарегистрировать'
+    const messageServer = (
+        <Text type="warning">
+            Ожидайте загрузку! Так как используется бесплатный сервер, время
+            первой загрузки может занять некоторое время.
+        </Text>
+    )
 
     return (
         <div className={classNames(cls.loginForm, {}, [className])}>
@@ -107,6 +113,7 @@ const LoginForm = (props: LoginFormProps) => {
                     value={password}
                     size="large"
                 />
+                {isLoading && messageServer}
                 <Button
                     onClick={onButtonClickHandler}
                     loading={isLoading}
