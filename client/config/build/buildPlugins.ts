@@ -32,15 +32,12 @@ export function buildPlugins({
             new MiniCssExtractPlugin({
                 filename: 'css/[name].[contenthash:8].css',
                 chunkFilename: 'css/[name].[contenthash:8].css',
-            })
+            }),
         )
         plugins.push(
             new CopyPlugin({
-                patterns: [
-                    { from: paths.locales, to: paths.buildLocales },
-                    { from: paths.img, to: paths.buildImg },
-                ],
-            })
+                patterns: [{ from: paths.img, to: paths.buildImg }],
+            }),
         )
     }
 
@@ -50,7 +47,7 @@ export function buildPlugins({
             new CircularDependencyPlugin({
                 exclude: /node_modules/,
                 failOnError: true,
-            })
+            }),
         )
         plugins.push(
             new ForkTsCheckerWebpackPlugin({
@@ -61,7 +58,7 @@ export function buildPlugins({
                     },
                     mode: 'write-references',
                 },
-            })
+            }),
         )
     }
 
