@@ -5,6 +5,7 @@ import { Layout } from 'antd'
 import { classNames } from '@/shared/lib/classNames/classNames'
 
 import cls from './ContentLayout.module.scss'
+import { triggerStyles } from './triggerStyles'
 
 interface ContentLayoutProps {
     className?: string
@@ -20,7 +21,14 @@ export const ContentLayout = (props: ContentLayoutProps) => {
 
     return (
         <Layout className={classNames(cls.contentLayout, {}, [className])}>
-            <Sider className={cls.sidebar}>{sidebar}</Sider>
+            <Sider
+                breakpoint="md"
+                collapsedWidth="0"
+                className={cls.sidebar}
+                zeroWidthTriggerStyle={triggerStyles}
+            >
+                {sidebar}
+            </Sider>
             <Layout>
                 <Header className={cls.header}>{header}</Header>
                 <Content className={cls.content}>{content}</Content>

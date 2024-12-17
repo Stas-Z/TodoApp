@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 import { classNames } from '@/shared/lib/classNames/classNames'
 import { Logo } from '@/shared/ui/Logo'
 
-import cls from './Sidebar.module.scss'
 import { useSidebarItems } from '../../model/selectors/getSidebarItems'
 
 interface SidebarProps {
@@ -26,7 +25,7 @@ export const Sidebar = memo((props: SidebarProps) => {
     }))
 
     return (
-        <div className={classNames(cls.sidebar, {}, [className])}>
+        <div className={classNames('', {}, [className])}>
             <Logo />
             <Menu
                 mode="inline"
