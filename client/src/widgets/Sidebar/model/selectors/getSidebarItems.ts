@@ -1,8 +1,16 @@
-import { CheckCircleOutlined, PauseCircleOutlined } from '@ant-design/icons'
+import {
+    CheckCircleOutlined,
+    PauseCircleOutlined,
+    UserOutlined,
+} from '@ant-design/icons'
 import { useSelector } from 'react-redux'
 
 import { getUserAuthData } from '@/entities/User'
-import { getRouteTodo, getRouteTodoCompleted } from '@/shared/const/router'
+import {
+    getRouteLogin,
+    getRouteTodo,
+    getRouteTodoCompleted,
+} from '@/shared/const/router'
 
 import { SidebarItemType } from '../types/sidebar'
 
@@ -11,17 +19,30 @@ export const useSidebarItems = () => {
     const sidebarItemsList: SidebarItemType[] = [
         {
             id: '1',
-            path: getRouteTodo(),
-            Icon: CheckCircleOutlined,
-            text: 'Все задания',
-        },
-        {
-            id: '2',
-            path: getRouteTodoCompleted(),
-            Icon: PauseCircleOutlined,
-            text: 'Завершенные',
+            path: getRouteLogin(),
+            Icon: UserOutlined,
+            text: 'Авторизация',
         },
     ]
+    if (userData) {
+        sidebarItemsList.push(
+            {
+                id: '1',
+                path: getRouteTodo(),
+                Icon: CheckCircleOutlined,
+                text: 'Все задания',
+                authOnly: true,
+            },
+            {
+                id: '2',
+                path: getRouteTodoCompleted(),
+                Icon: PauseCircleOutlined,
+                text: 'Завершенные',
+                authOnly: true,
+            },
+        )
+        sidebarItemsList.shift()
+    }
 
     return sidebarItemsList
 }

@@ -56,12 +56,8 @@ const LoginForm = (props: LoginFormProps) => {
             }
         }
         if (view === AuthType.AUTH) {
-            const result = await dispatch(authByEmail({ password, email }))
-            if (result.meta.requestStatus === 'fulfilled') {
-                timerRef.current = setTimeout(() => {
-                    onSuccess?.()
-                }, 1000)
-            }
+            await dispatch(authByEmail({ password, email }))
+            onSuccess?.()
         }
     }, [view, dispatch, password, email, onSuccess])
 

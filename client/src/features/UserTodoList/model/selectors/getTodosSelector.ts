@@ -18,3 +18,19 @@ export const getTodoListIsLoading = createSelector(
     [selectUserTodosState],
     (todosState: TodoListSchema) => todosState.isLoading,
 )
+export const getTodoListCompleted = createSelector(
+    [selectUserTodosState],
+    (todosState: TodoListSchema) =>
+        todosAdapter
+            .getSelectors()
+            .selectAll(todosState)
+            .filter((todo) => todo.completed === true),
+)
+export const getTodoListActive = createSelector(
+    [selectUserTodosState],
+    (todosState: TodoListSchema) =>
+        todosAdapter
+            .getSelectors()
+            .selectAll(todosState)
+            .filter((todo) => todo.completed === false),
+)

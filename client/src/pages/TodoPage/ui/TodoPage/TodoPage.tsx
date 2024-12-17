@@ -15,7 +15,8 @@ const TodoPage = memo((props: TodoPageProps) => {
     return (
         <div className={classNames(cls.todoPage, {}, [className])}>
             <AddNewTodo />
-            <UserTodoList />
+
+            <UserTodoList completed={false} />
         </div>
     )
 })
