@@ -22,6 +22,7 @@ export class TodoController {
             const todo = new Todo({
                 value,
                 user: req.user.id,
+                createdAt: Date.now(),
             })
             await todo.save()
             res.json(todo)
