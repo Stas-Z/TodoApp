@@ -2,14 +2,14 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { ThunkConfig } from '@/app/providers/StoreProvider'
 
-interface regByEmailProps {
+interface RegByEmailProps {
     email: string
     password: string
 }
 
 export const regByEmail = createAsyncThunk<
     string,
-    regByEmailProps,
+    RegByEmailProps,
     ThunkConfig<string>
 >('registration/regByEmail', async (regData, thunkAPI) => {
     const { extra, rejectWithValue } = thunkAPI

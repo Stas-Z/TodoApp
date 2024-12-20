@@ -2,16 +2,16 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { ThunkConfig } from '@/app/providers/StoreProvider'
 
-interface updateTodoProps {
+interface DeleteTodoProps {
     id?: string
 }
 
 export const deleteTodo = createAsyncThunk<
     string,
-    updateTodoProps,
+    DeleteTodoProps,
     ThunkConfig<string>
 >('userTodoList/deleteTodo', async (props, thunkAPI) => {
-    const { dispatch, extra, rejectWithValue } = thunkAPI
+    const { extra, rejectWithValue } = thunkAPI
 
     const { id } = props
 

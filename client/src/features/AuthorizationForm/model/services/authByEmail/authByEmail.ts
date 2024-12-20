@@ -3,14 +3,14 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { ThunkConfig } from '@/app/providers/StoreProvider'
 import { User, userActions } from '@/entities/User'
 
-interface authByEmailProps {
+interface AuthByEmailProps {
     email: string
     password: string
 }
 
 export const authByEmail = createAsyncThunk<
     User,
-    authByEmailProps,
+    AuthByEmailProps,
     ThunkConfig<string>
 >('login/authByEmail', async (authData, thunkAPI) => {
     const { extra, rejectWithValue, dispatch } = thunkAPI

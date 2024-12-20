@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 
 import { CheckCircleOutlined, DeleteOutlined } from '@ant-design/icons'
 import { Button, Card, Input, Modal, Skeleton, Space } from 'antd'
@@ -28,8 +28,8 @@ export const TodoItem = memo((props: TodoItemProps) => {
         deleteTodoHandler,
     } = props
 
-    const [initValue, setInitValue] = useState('')
-    const [inputValue, setInputValue] = useState('')
+    const [initValue, setInitValue] = useState(todo.value)
+    const [inputValue, setInputValue] = useState(todo.value)
     const [isAuthModal, setIsAuthModal] = useState(false)
 
     const onCloseModal = useCallback(() => {
@@ -37,11 +37,6 @@ export const TodoItem = memo((props: TodoItemProps) => {
     }, [])
     const onShowModal = useCallback(() => {
         setIsAuthModal(true)
-    }, [])
-
-    useEffect(() => {
-        setInitValue(todo.value)
-        // eslint-disable-next-line
     }, [])
 
     const onChangeText = useCallback(

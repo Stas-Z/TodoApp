@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { ThunkConfig } from '@/app/providers/StoreProvider'
 import { MyTodo } from '@/entities/Todo'
 
-interface updateTodoProps {
+interface UpdateTodoProps {
     id?: string
     value?: string
     completed?: boolean
@@ -11,7 +11,7 @@ interface updateTodoProps {
 
 export const updateTodo = createAsyncThunk<
     MyTodo,
-    updateTodoProps,
+    UpdateTodoProps,
     ThunkConfig<string>
 >('userTodoList/updateTodo', async (props, thunkAPI) => {
     const { extra, rejectWithValue } = thunkAPI

@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { ThunkConfig } from '@/app/providers/StoreProvider'
 import { MyTodo } from '@/entities/Todo'
 
-interface fetchTodoListProps {
+interface FetchTodoListProps {
     replace?: boolean
     sort?: boolean
     search?: string
@@ -12,7 +12,7 @@ interface fetchTodoListProps {
 
 export const fetchTodoList = createAsyncThunk<
     MyTodo[],
-    fetchTodoListProps,
+    FetchTodoListProps,
     ThunkConfig<string>
 >('userTodolist/fetchTodoList', async (props, thunkAPI) => {
     const { extra, rejectWithValue } = thunkAPI
