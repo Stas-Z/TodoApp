@@ -125,53 +125,6 @@ const LoginForm = (props: LoginFormProps) => {
                 </Button>
             </Space>
         </div>
-        // <VStack
-        //     gap="16"
-        //     align="center"
-        //     className={classNames(cls.loginForm, {}, [className])}
-        // >
-        //     <VStack gap="16" max align="center">
-        //         <AppLogo width={100} height={49} />
-
-        //         <AuthTypeTabs value={view} onChangeType={onChangeHandler} />
-        //     </VStack>
-        //     {error && errorMessage}
-        //     {succes && succesMessage}
-        //     <VStack gap="8" max>
-        //         <Input
-        //             autoFocus
-        //             type="text"
-        //             className={cls.input}
-        //             placeholder={t('Enter your email')}
-        //             size="l"
-        //             onChange={onChangeEmail}
-        //             value={email}
-        //         />
-        //         <Input
-        //             type="password"
-        //             className={cls.input}
-        //             placeholder={t('Password')}
-        //             size="l"
-        //             onChange={onChangePassword}
-        //             value={password}
-        //         />
-        //     </VStack>
-
-        //     <Button
-        //         onClick={onButtonClickHandler}
-        //         variant="filled"
-        //         color="yellow"
-        //         className={cls.loginBtn}
-        //         fullWidth
-        //         size="l"
-        //         disabled={isLoading}
-        //         shadow
-        //         round
-        //         isLoading={isLoading}
-        //     >
-        //         {buttonText}
-        //     </Button>
-        // </VStack>
     )
 }
 
